@@ -55,6 +55,6 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],
-    install_requires=['requests==2.10.0'],
+    install_requires=['requests'],
 
 )
