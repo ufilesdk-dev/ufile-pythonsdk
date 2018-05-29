@@ -166,3 +166,12 @@ def shardingupload_url(bucket, key, uploadid, part_number):
     @return string类型, 结束分片上传UFile的url
     """
     return 'http://{0}{1}/{2}?uploadId={3}&partNumber={4}'.format(bucket, config.get_default('upload_suffix'), key, uploadid, s(str(part_number)))
+
+def ufile_getfilelist_url(bucket):
+    """
+    获取文件列表的url
+
+    @param bucket: string 类型，获取的空间名称
+    @return string类型，获取文件列表的url
+    """
+    return 'http://{0}{1}/?list'.format(bucket, config.get_default('upload_suffix'))

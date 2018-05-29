@@ -60,7 +60,7 @@ class PostUFile(BaseUFile):
             postdata = self.__make_postbody(boundary, fields, stream, mime_type, localfile)
 
         # update the request header content-length
-        header['Content-Length'] = len(postdata)
+        header['Content-Length'] = str(len(postdata))
 
         # post url
         url = ufile_post_url(bucket)

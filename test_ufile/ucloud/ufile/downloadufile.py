@@ -89,8 +89,6 @@ class DownloadUFile(BaseUFile):
         if expires is not None:
             expires += int(time.time())
             header['Expires'] = s(str(expires))
-            #expires = 1469176771
-            #header['Expires'] = "1469176771"
         signature = self.signature(bucket, key, 'get', header)
         query = { 'UCloudPublicKey': self._public_key(),
                   'Expires': str(expires),

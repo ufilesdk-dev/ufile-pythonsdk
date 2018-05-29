@@ -157,7 +157,7 @@ class MultipartUploadUFile(BaseUFile):
         if 'User-Agent' not in self.__header:
             self.__header['User-Agent'] = config.get_default('user_agent')
 
-        self.__header['Content-Length'] = 0
+        self.__header['Content-Length'] = str(0)
         self.__header['Content-Type'] = 'text/plain'
         authorization = self.authorization('post', self.__bucket, self.__key, self.__header)
         self.__header['Authorization'] = authorization
@@ -187,7 +187,7 @@ class MultipartUploadUFile(BaseUFile):
         logger.info(self.etaglist)
         data = ','.join(self.etaglist)
         logger.info(data)
-        self.__header['Content-Length'] = len(data)
+        self.__header['Content-Length'] = str(len(data))
 
         authorization = self.authorization('post', self.__bucket, self.__key, self.__header)
         self.__header['Authorization'] = authorization
@@ -279,7 +279,7 @@ class MultipartUploadUFile(BaseUFile):
             _check_dict(self.__header)
         if 'User-Agent' not in self.__header:
             self.__header['User-Agent'] = config.get_default('user_agent')
-        
+
         # initial sharding request
         if self.uploadid is None:
             ret, resp = self.__initialsharding()

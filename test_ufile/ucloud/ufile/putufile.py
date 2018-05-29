@@ -78,7 +78,7 @@ class PutUFile(BaseUFile):
         header['Content-Type'] = mime_type
         authorization = self.authorization('put', bucket, key, header)
         header['Authorization'] = authorization
-        header['Content-Length'] = file_size
+        header['Content-Length'] = str(file_size)
         url = ufile_put_url(bucket, key)
         logger.info('start put file {0} to bucket {1} as {2}'.format(localfile, bucket, key))
         logger.info('put UFile url: {0}'.format(url))

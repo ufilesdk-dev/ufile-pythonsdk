@@ -42,7 +42,7 @@ class GetFileList(BaseUFile):
         if 'User-Agent' not in header:
             header['User-Agent'] = config.get_default('user_agent')
 
-        header['Content-Length'] = 0
+        header['Content-Length'] = str(0)
         authorization = self.authorization('get', bucket, '', header)
         header['Authorization'] = authorization
         param = dict()

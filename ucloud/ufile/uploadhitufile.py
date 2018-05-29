@@ -50,7 +50,7 @@ class UploadHitUFile(BaseUFile):
 
         # update request header
         header['Content-Type'] = mimetype
-        header['Content-Length'] = 0
+        header['Content-Length'] = str(0)
         authorization = self.authorization('post', bucket, key, header)
         header['Authorization'] = authorization
 

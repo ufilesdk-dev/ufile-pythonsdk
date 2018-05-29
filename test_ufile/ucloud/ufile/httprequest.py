@@ -11,7 +11,7 @@ def __return_wraper(response, content_consumed=False):
 
     @param response: requests response object
     @param content_consumed: boolean类型, 如果响应内容被保存在文件中则为真
-    @return ret: 如果http状态码为[200, 204, 206]之一则返回None，否则如果服务器返回json信息则返回dict类型，键值对类型分别为string, unicode string类型，否则返回空的dict
+    @return ret: 如果http状态码不为[200, 204, 206]之一则返回None，否则如果服务器返回json信息则返回dict类型，键值对类型分别为string, unicode string类型，否则返回空的dict
     @return  ResponseInfo: 响应的具体信息，UCloud UFile 服务器返回信息或者网络链接异常
     """
     if response.status_code not in [200, 204, 206]:
@@ -28,7 +28,7 @@ def _put_file(url, header, uploadfile):
     @param url: string类型，上传的url
     @param header: dict类型，http 请求header，键值对类型分别为string，比如{'User-Agent': 'Google Chrome'}
     @param uploadfile: 本地文件名称
-    @return ret: 如果http状态码为[200, 204, 206]之一则返回None，否则如果服务器返回json信息则返回dict类型，键值对类型分别为string, unicode string类型，否则返回空的dict
+    @return ret: 如果http状态码不为[200, 204, 206]之一则返回None，否则如果服务器返回json信息则返回dict类型，键值对类型分别为string, unicode string类型，否则返回空的dict
     @return  ResponseInfo: 响应的具体信息，UCloud UFile 服务器返回信息或者网络链接异常
     """
     with open(uploadfile, 'rb') as data:
@@ -42,7 +42,7 @@ def _put_stream(url, header, data):
     @param url: string类型，上传的url
     @param header: dict类型，http 请求header，键值对类型分别为string，比如{'User-Agent': 'Google Chrome'}
     @param data: 二进制数据流
-    @return ret: 如果http状态码为[200, 204, 206]之一则返回None，否则如果服务器返回json信息则返回dict类型，键值对类型分别为string, unicode string类型，否则返回空的dict
+    @return ret: 如果http状态码不为[200, 204, 206]之一则返回None，否则如果服务器返回json信息则返回dict类型，键值对类型分别为string, unicode string类型，否则返回空的dict
     @return  ResponseInfo: 响应的具体信息，UCloud UFile 服务器返回信息或者网络链接异常
     """
     try:
@@ -59,7 +59,7 @@ def _post_file(url, header, data):
     @param url:  string类型，上传的url
     @param header: dict类型，http 请求header，键值对类型分别为string，比如{'User-Agent': 'Google Chrome'}
     @param data: 二进制数据流
-    @return ret: 如果http状态码为[200, 204, 206]之一则返回None，否则如果服务器返回json信息则返回dict类型，键值对类型分别为string, unicode string类型，否则返回空的dict
+    @return ret: 如果http状态码不为[200, 204, 206]之一则返回None，否则如果服务器返回json信息则返回dict类型，键值对类型分别为string, unicode string类型，否则返回空的dict
     @return  ResponseInfo: 响应的具体信息，UCloud UFile 服务器返回信息或者网络链接异常
     """
 
@@ -93,7 +93,7 @@ def _delete_file(url, header):
 
     @param url: string类型, 要删除文件的url
     @param header: dict 类型，键值对类型分别为string类型，HTTP请求头
-    @return ret: 如果http状态码为[200, 204, 206]之一则返回None，否则如果服务器返回json信息则返回dict类型，键值对类型分别为string, unicode string类型，否则返回空的dict
+    @return ret: 如果http状态码不为[200, 204, 206]之一则返回None，否则如果服务器返回json信息则返回dict类型，键值对类型分别为string, unicode string类型，否则返回空的dict
     @return  ResponseInfo: 响应的具体信息，UCloud UFile 服务器返回信息或者网络链接异常
     """
     try:
@@ -109,7 +109,7 @@ def _initialsharding(url, header):
 
     @param url:  string类型, 初始化分片请求的url
     @param header: dict 类型，键值对类型分别为string类型，HTTP请求头
-    @return ret: 如果http状态码为[200, 204, 206]之一则返回None，否则如果服务器返回json信息则返回dict类型，键值对类型分别为string, unicode string类型，否则返回空的dict
+    @return ret: 如果http状态码不为[200, 204, 206]之一则返回None，否则如果服务器返回json信息则返回dict类型，键值对类型分别为string, unicode string类型，否则返回空的dict
     @return  ResponseInfo: 响应的具体信息，UCloud UFile 服务器返回信息或者网络链接异常
     """
     try:
@@ -119,8 +119,6 @@ def _initialsharding(url, header):
     return __return_wraper(response)
 
 
-
-
 def _shardingupload(url, data, header):
     """
     分片上传数据
@@ -128,7 +126,7 @@ def _shardingupload(url, data, header):
     @param url: string类型，分片上传数据的url
     @param data: bytes 类型，分片上传的二进制数据
     @param header: dict 类型，键值对类型分别为string类型，HTTP请求头
-    @return ret: 如果http状态码为[200, 204, 206]之一则返回None，否则如果服务器返回json信息则返回dict类型，键值对类型分别为string, unicode string类型，否则返回空的dict
+    @return ret: 如果http状态码不为[200, 204, 206]之一则返回None，否则如果服务器返回json信息则返回dict类型，键值对类型分别为string, unicode string类型，否则返回空的dict
     @return  ResponseInfo: 响应的具体信息，UCloud UFile 服务器返回信息或者网络链接异常
     """
     try:
@@ -144,7 +142,7 @@ def _finishsharding(url, param, header, data):
 
     @param url:  string类型, 初始化分片请求的url
     @param header: dict 类型，键值对类型分别为string类型，HTTP请求头
-    @return ret: 如果http状态码为[200, 204, 206]之一则返回None，否则如果服务器返回json信息则返回dict类型，键值对类型分别为string, unicode string类型，否则返回空的dict
+    @return ret: 如果http状态码不为[200, 204, 206]之一则返回None，否则如果服务器返回json信息则返回dict类型，键值对类型分别为string, unicode string类型，否则返回空的dict
     @return  ResponseInfo: 响应的具体信息，UCloud UFile 服务器返回信息或者网络链接异常
     """
     try:
@@ -161,7 +159,7 @@ def _download_file(url, header, localfile):
     @param url: string类型, 下载UFile资源的url
     @param header: dict类型，http 请求header，键值对类型分别为string，比如{'User-Agent': 'Google Chrome'}
     @param localfile: string类型, 保存文件的本地名称
-    @return ret: 如果http状态码为[200, 204, 206]之一则返回None，否则如果服务器返回json信息则返回dict类型，键值对类型分别为string, unicode string类型，否则返回空的dict
+    @return ret: 如果http状态码不为[200, 204, 206]之一则返回None，否则如果服务器返回json信息则返回dict类型，键值对类型分别为string, unicode string类型，否则返回空的dict
     @return  ResponseInfo: 响应的具体信息，UCloud UFile 服务器返回信息或者网络链接异常
     """
     try:
@@ -176,6 +174,23 @@ def _download_file(url, header, localfile):
         return __return_wraper(response)
     return __return_wraper(response, True)
 
+def _getfilelist(url, header, param):
+    """
+    获取文件列表
+
+    @param url: string 类型，获取文件列表的url
+    @param header: dict类型，http 请求header，键值对类型分别为string，比如{'User-Agent': 'Google Chrome'}
+    @return ret: 如果http状态码不为[200, 204, 206]之一则返回None，否则如果服务器返回json信息则返回dict类型，键值对类型分别为string, unicode string类型，否则返回空的dict
+    @return  ResponseInfo: 响应的具体信息，UCloud UFile 服务器返回信息或者网络链接异常
+    """
+
+    try:
+        response = requests.get(url, headers=header, params=param, timeout=config.get_default('connection_timeout'))
+    except requests.RequestException as e:
+        logger.error('send request error:{0}'.format(e))
+        return None, ResponseInfo(None, e)
+    return __return_wraper(response)
+
 
 def _bucket_request(url, param, header):
     """
@@ -184,7 +199,7 @@ def _bucket_request(url, param, header):
     @param url: String类型，空间管理请求的url
     @param param: dict类型，键值对类型分别为string类型，HTTP请求的查询参数
     @param header: dict类型，键值对类型分别为string类型，HTTP请求头信息
-    @return ret: 如果http状态码为[200, 204, 206]之一则返回None，否则如果服务器返回json信息则返回dict类型，键值对类型分别为string, unicode string类型，否则返回空的dict
+    @return ret: 如果http状态码不为[200, 204, 206]之一则返回None，否则如果服务器返回json信息则返回dict类型，键值对类型分别为string, unicode string类型，否则返回空的dict
     @return  ResponseInfo: 响应的具体信息，UCloud UFile 服务器返回信息或者网络链接异常
     """
     try:
