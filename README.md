@@ -280,27 +280,27 @@ bucketmanager_handler = bucketmanager.BucketManager(public_key, private_key)
 
 # 创建新的bucket
 bucketname = '' #创建的空间名称
-ret, resp = bucketmanager.createbucket(bucketname, 'public')
+ret, resp = bucketmanager_handler.createbucket(bucketname, 'public')
 assert resp.status_code == 200
 
 # 删除bucket
 bucketname = '' #待删除的空间名称
-ret, resp = bucketmanager.deletebucket(bucketname)
+ret, resp = bucketmanager_handler.deletebucket(bucketname)
 print(ret)
 
 # 获取bucket信息
 bucketname = '' # 待查询的空间名称
-ret, resp = bucketmanager.describebucket(public_bucket)
+ret, resp = bucketmanager_handler.describebucket(public_bucket)
 print(ret)
 
 # 更改bucket属性
 bucketname = '' # 待更改的私有空间名称
-bucketmanager.updatebucket(bucketname, 'public'):
+bucketmanager_handler.updatebucket(bucketname, 'public'):
 
 # 获得空间文件列表
 bucketname = '' #待查询的空间名称
 offset = 0      #文件列表起始位置
 limit = 20      #获取文件数量
-ret, resp = bucketmanager.getfilelist(bucketname, offset, limit)
+ret, resp = bucketmanager_handler.getfilelist(bucketname, offset, limit)
 print(ret)
 ~~~~~~~~~~~~~~~
