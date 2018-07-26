@@ -280,7 +280,7 @@ bucketmanager_handler = bucketmanager.BucketManager(public_key, private_key)
 
 # 创建新的bucket
 bucketname = '' #创建的空间名称
-ret, resp = bucketmanager.createbucket(bucketname, 'public')
+ret, resp = bucketmanager_handler.createbucket(bucketname, 'public')
 assert resp.status_code == 200
 
 # 删除bucket
