@@ -14,6 +14,9 @@
 
 > `python setup.py install`
 
+**注意：在国内的 pip 源会由于网络问题无法更新，建议加上国内的 python 源。**
+具体请见：[如何添加 python 国内源？](https://www.baidu.com/s?wd=python%20%E5%9B%BD%E5%86%85%E6%BA%90&rsv_spt=1&rsv_iqid=0xd4c874b700022c35&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&rqlang=cn&tn=baiduhome_pg&rsv_enter=0&rsv_t=ca7cGiKHZYyi4WMSjK1f%2BXazzuAjqbqCTbXjSrEq6oiaXwF3im1hQl9E9xE9fKWkDccY&oq=python%2520%25E5%259B%25BD%25E5%2586%2585%25E6%25BA%2590&rsv_pq=ba65a2f20001ea73)
+
 ## 功能说明
 
 ### 公共参数说明
