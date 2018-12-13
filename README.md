@@ -1,4 +1,7 @@
-本源码包含使用Python对UCloud的对象存储业务进行空间和内容管理的API，适用于Python 2和Python 3
+本源码包含使用Python对UCloud的对象存储业务(UFile)进行空间和内容管理的API，适用于Python 2(2.6及以后)和Python 3(3.3及以后)
+
+## UFile 对象存储基本概念
+在对象存储系统中，存储空间（Bucket）是文件（File）的组织管理单位，文件（File）是存储空间的逻辑存储单元。对于每个账号，该账号里存放的每个文件都有唯一的一对存储空间（Bucket）与键（Key）作为标识。我们可以把 Bucket 理解成一类文件的集合，Key 理解成文件名。由于每个 Bucket 需要配置和权限不同，每个账户里面会有多个 Bucket。在 UFile 里面，Bucket 主要分为公有和私有两种，公有 Bucket 里面的文件可以对任何人开放，私有 Bucket 需要配置对应访问签名才能访问。
 
 ## 依赖的Python Package
 
@@ -6,18 +9,27 @@
 
 ## 文件目录说明
 
-* ucloud文件夹：              SDK的具体实现
+* docs文件夹：                开发文档生成文件
+* ufile文件夹：               SDK的具体实现
 * setup.py:                   package安装文件
 * test_ufile文件夹:           测试文件以及demo示例
 
 ## 使用方法
 
-> `python setup.py install`
-
+> `python setup.py install` (本地安装)
+> 
+> `pip install ufile` (pip安装，须首先安装pip)
+ 
 **注意：在国内的 pip 源会由于网络问题无法更新，建议加上国内的 python 源。**
 具体请见：[如何添加 python 国内源？](https://www.baidu.com/s?wd=python%20%E5%9B%BD%E5%86%85%E6%BA%90&rsv_spt=1&rsv_iqid=0xd4c874b700022c35&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&rqlang=cn&tn=baiduhome_pg&rsv_enter=0&rsv_t=ca7cGiKHZYyi4WMSjK1f%2BXazzuAjqbqCTbXjSrEq6oiaXwF3im1hQl9E9xE9fKWkDccY&oq=python%2520%25E5%259B%25BD%25E5%2586%2585%25E6%25BA%2590&rsv_pq=ba65a2f20001ea73)
 
+## 开发文档生成 
+
+docs文件夹包含基于sphinx的开发文档生成文件，在此文件夹下可通过运行make html命令可生成build目录，build/html目录即为开发文档
+
 ## 功能说明
+
+ufile文件夹包含SDK的具体实现，该文件夹亦是名为ufile的package的源码文件夹
 
 ### 公共参数说明
 
@@ -29,7 +41,7 @@ private_key = ''		#账户公私钥中的私钥
 ### 设置参数
 
 ~~~~~~~~~~~~~~~{.py}
-from ucloud.ufile import config
+from ufile import config
 
 #设置上传host后缀,外网可用 .ufile.ucloud.cn
 config.set_default(uploadsuffix='YOUR_UPLOAD_SUFFIX')
@@ -44,7 +56,7 @@ config.set_default(expires=60)
 ### 设置日志文件
 
 ~~~~~~~~~~~~~~~{.py}
-from ucloud import logger
+from ufile import logger
 
 locallogname = '' #完整本地日志文件名
 logger.set_log_file(locallogname)
@@ -60,9 +72,9 @@ private_bucket = ''		#私有空间名称
 localfile = ''			#本地文件名
 put_key = ''			#上传文件在空间中的名称
 
-from ucloud.ufile import putufile
+from ufile import filemanager
 
-putufile_handler = putufile.PutUFile(public_key, private_key)
+putufile_handler = filemanager.FileManager(public_key, private_key)
 
 # 普通上传文件至公共空间
 ret, resp = putufile_handler.putfile(public_bucket, put_key, localfile, header=None)
@@ -74,7 +86,7 @@ assert resp.status_code == 200
 
 # 普通上传二进制数据流至公共空间
 from io import BytesIO
-bio = BytesIO(u'你好'.encode('utf-8'))  #二进制数据流
+bio = BytesIO(u'Do be a good man'.encode('utf-8'))  #二进制数据流
 stream_key = ''                         #上传数据流在空间中的名称
 ret, resp = putufile_handler.putfile(public_bucket, stream_key, bio)
 ~~~~~~~~~~~~~~~
@@ -98,9 +110,9 @@ private_bucket = ''		#私有空间名称
 localfile = ''			#本地文件名
 post_key = ''			#上传文件在空间中的名称
 
-from ucloud.ufile import postufile
+from ufile import filemanager
 
-postufile_handler = postufile.PostUFile(public_key, private_key)
+postufile_handler = filemanager.FileManager(public_key, private_key)
 
 # 表单上传至公共空间
 ret, resp = postufile_handler.postfile(public_bucket, post_key, localfile)
@@ -126,18 +138,17 @@ assert resp.status_code == 200
 
 ~~~~~~~~~~~~~~~{.py}
 public_bucket = ''		#公共空间名称
-private_bucket = ''		#私有空间名称
-localfile = ''			#本地文件名
-nonexistfile = ''		#本地文件名
-uploadhit_key = ''		#上传文件在空间中的名称
-nonexistkey = ''		#上传文件在空间中的名称
+existkey = ''           #添加上传文件在空间中的名称
+nonexistkey = ''        #添加上传文件在空间中的名称
+existfile = ''		    #本地文件名(空间存在该文件)
+nonexistfile = ''		#本地文件名((空间不存在该文件))
 
-from ucloud.ufile import uploadhitufile
+from ufile import filemanager
 
-uploadhitufile_handler = uploadhitufile.UploadHitUFile(public_key, private_key)
+uploadhitufile_handler = filemanager.FileManager(public_key, private_key)
 
 # 秒传已存在文件
-ret, resp = uploadhitufile_handler.uploadhit(public_bucket, uploadhit_key, localfile)
+ret, resp = uploadhitufile_handler.uploadhit(public_bucket, existkey, existfile)
 assert resp.status_code == 200
 
 # 秒传不存在文件
@@ -168,20 +179,20 @@ range_savefile = ''			#保存文件名
 put_key = ''				#文件在空间中的名称
 stream_key = ''				#文件在空间中的名称
 
-from ucloud.ufile import downloadufile
+from ufile import filemanager
 
-downloadufile_handler = downloadufile.DownloadUFile(public_key, private_key)
+downloadufile_handler = filemanager.FileManager(public_key, private_key)
 
 # 从公共空间下载文件
-ret, resp = downloadufile_handler.download_file(public_bucket, put_key, public_savefile, isprivate=False)
+ret, resp = downloadufile_handler.download_file(public_bucket, put_key, public_download, isprivate=False)
 assert resp.status_code == 200
 
 # 从私有空间下载文件
-ret, resp = downloadufile_handler.download_file(private_bucket, put_key, private_savefile)
+ret, resp = downloadufile_handler.download_file(private_bucket, put_key, private_download)
 assert resp.status_code == 200
 
 # 下载包含文件范围请求的文件
-ret, resp = downloadufile_handler.download_file(public_bucket, put_key, range_savefile, isprivate=False, expires=300, content_range=(0, 50))
+ret, resp = downloadufile_handler.download_file(public_bucket, put_key, range_savefile, isprivate=False, expires=300, content_range=(0, 15))
 assert resp.status_code == 206
 ~~~~~~~~~~~~~~~
 
@@ -206,9 +217,9 @@ public_bucket = ''				#公共空间名称
 private_bucekt = ''				#私有空间名称
 delete_key = ''					#文件在空间中的名称
 
-from ucloud.ufile import deleteufile
+from ufile import filemanager
 
-deleteufile_handler = deleteufile.DeleteUFile(public_key, private_key)
+deleteufile_handler = filemanager.FileManager(public_key, private_key)
 
 # 删除公共空间的文件
 ret, resp = deleteufile_handler.deletefile(public_bucket, delete_key)
@@ -236,7 +247,7 @@ public_bucket = ''		#公共空间名称
 sharding_key = ''		#上传文件在空间中的名称
 localfile = ''			#本地文件名
 
-from ucloud.ufile import multipartuploadufile
+from ufile import multipartuploadufile
 
 multipartuploadufile_handler = multipartuploadufile.MultipartUploadUFile(public_key, private_key)
 
@@ -274,10 +285,27 @@ else:   # 服务器或者客户端错误
 | 403 | API公私钥错误 |
 | 401 | 上传凭证错误 |
 
+### 比较本地文件和远程文件etag
+
+~~~~~~~~~~~~~~~{.py}
+from ufile import filemanager
+
+public_bucket = ''    #添加公共空间名称
+put_key = ''          #添加远程文件key
+local_file=''         #添加本地文件路径
+
+compare_handler = filemanager.FileManager(public_key, private_key)
+result=compare_handler.compare_file_etag(public_bucket,put_key,local_file)
+if result==True:
+    logger.info('\netag are the same!')
+else:
+    logger.info('\netag are different!')
+~~~~~~~~~~~~~~~
+
 ### 空间管理
 
 ~~~~~~~~~~~~~~~{.py}
-from ucloud.ufile import bucketmanager
+from ufile import bucketmanager
 
 bucketmanager_handler = bucketmanager.BucketManager(public_key, private_key)
 

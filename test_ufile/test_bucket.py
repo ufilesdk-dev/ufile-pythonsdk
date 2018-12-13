@@ -4,20 +4,20 @@
 test bucket
 """
 
-from ucloud.ufile import bucketmanager
+from ufile import bucketmanager
 
-
-public_key = '' #添加自己的账户公钥
-private_key = '' #添加自己的账户私钥
-public_bucket = '' #公共空间名称
-private_bucket = '' #私有空间名称
+public_key = '<your public key>'              #添加自己的账户公钥(UCloud账户的API密钥公钥,此密钥权限较高，仅bucket操作使用)
+private_key = '<your private key>'            #添加自己的账户私钥(UCloud账户的API密钥私钥,此密钥权限较高，仅bucket操作使用)
+public_bucket = '<your public bucket name>'   #添加公共空间名称
+private_bucket = '<your private bucket name>' #添加私有空间名称
+region = '<your region>'                      #添加bucket所在的地理区域
 
 # create public bucket
 bucketmanager = bucketmanager.BucketManager(public_key, private_key)
-ret, resp = bucketmanager.createbucket(public_bucket, 'public')
+ret, resp = bucketmanager.createbucket(public_bucket, region,'public')
 print(ret)
 # create private bucket
-ret, resp = bucketmanager.createbucket(private_bucket, 'private')
+ret, resp = bucketmanager.createbucket(private_bucket, region,'private')
 print(ret)
 # delete public bucket
 ret, resp = bucketmanager.deletebucket(public_bucket)
@@ -32,5 +32,5 @@ print(ret)
 ret, resp = bucketmanager.describebucket(private_bucket)
 print(ret)
 # get a list of files from a bucket
-ret, resp = bucketmanager.getfilelist(public_bucket, projectid='org-5150')
+ret, resp = bucketmanager.getfilelist(public_bucket)
 print(ret)

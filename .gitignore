@@ -1,8 +1,11 @@
 .DS_Store
 node_modules
-dist
+dist/
 *.log
 *.pyc
-ucloud.egg-info/*
-build/*
+ufile.egg-info/
+build/
 requests
+test_ufile/*.log
+test_ufile/*.txt
+docs/build/

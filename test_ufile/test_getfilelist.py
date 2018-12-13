@@ -1,18 +1,16 @@
 # -*- coding: utf-8
 
 import unittest
-from ucloud.ufile import getufilelist
-from ucloud.logger import logger, set_log_file
-from ucloud.ufile.config import get_default
-
-
-public_key = ''
-private_key = ''
-bucket = ''
-
+from ufile import filemanager
+from ufile.logger import logger, set_log_file
+from ufile.config import get_default
+  
+public_key = '<your public key>'    #添加自己的账户公钥
+private_key = '<your private key>'  #添加自己的账户私钥
+bucket = '<your bucket name>'       #添加自己的空间名称
 
 class GetFileListTestCase(unittest.TestCase):
-    getfilelist_hander = getufilelist.GetFileList(public_key, private_key)
+    getfilelist_hander = filemanager.FileManager(public_key, private_key)
 
     def test_getfilelist(self):
         self.getfilelist_hander.set_keys(public_key, private_key)

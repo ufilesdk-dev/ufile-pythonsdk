@@ -12,13 +12,6 @@ except ImportError:
     setuptools = None
     from distutils.core import setup
 
-
-packages = [
-    'ucloud',
-    'ucloud.ufile',
-]
-
-
 def read(*names, **kwargs):
     return io.open(
         os.path.join(os.path.dirname(__file__), *names),
@@ -36,13 +29,15 @@ def find_version(*file_paths):
 
 
 setup(
-    name='ucloud',
-    version=find_version("ucloud/ufile/__init__.py"),
+    name='ufile',
+    version=find_version("ufile/__init__.py"),
     description='UCloud UFile Python SDK',
-    maintainer_email='David.li@ucloud.cn',
+    author_email='leo.li@ucloud.cn',
+    url="https://github.com/ufilesdk-dev/ufile-pythonsdk",
     platforms='any',
-    packages=packages,
+    packages=['ufile'],
     classifiers=[
+        "License :: OSI Approved :: MIT License",
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
@@ -52,6 +47,8 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],
