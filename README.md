@@ -6,6 +6,12 @@
 ## 依赖的Python Package
 
 * **requests**
+* centos 安装request包方法： https://blog.csdn.net/trb331617/article/details/72851971
+1.安装epel扩展源：“sudo yum install epel-release”
+2.安装python-pip：“sudo yum install python-pip”
+3.升级pip：“sudo pip install --upgrade pip”
+4.安装requests包：“sudo pip install requests”
+5.清除cache：“sudo yum clean all”
 
 ## 文件目录说明
 
