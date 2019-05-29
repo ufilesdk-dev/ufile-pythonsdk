@@ -52,7 +52,7 @@ private_key = ''		#账户公私钥中的私钥
 ~~~~~~~~~~~~~~~{.py}
 from ufile import config
 
-#设置上传host后缀,外网可用 .ufile.ucloud.cn
+#设置上传host后缀,外网可用 .cn-bj.ufileos.com  参考： https://docs.ucloud.cn/storage_cdn/ufile/tools/introduction
 config.set_default(uploadsuffix='YOUR_UPLOAD_SUFFIX')
 #设置下载host后缀，比如CDN下载 .ufile.ucloud.com.cn
 config.set_default(downloadsuffix='YOUR_DOWNLOAD_SUFFIX')
