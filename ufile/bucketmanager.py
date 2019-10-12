@@ -173,6 +173,7 @@ class BucketManager(object):
         logger.info('start delete bucket {0}'.format(bucket))
         return _bucket_request(UCLOUD_API_URL, param, header)
 
+    #该接口不再支持，请使用filemanager 的getfilelist接口；201910
     def getfilelist(self, bucket, offset=0, limit=20, header=None, projectid=None):
         """
         获取空间中文件列表
